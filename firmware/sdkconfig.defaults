@@ -1,0 +1,33 @@
+# ---- flash / partitions -------------------------------------------------
+CONFIG_ESPTOOLPY_FLASHSIZE_4MB=y
+CONFIG_ESPTOOLPY_FLASHSIZE="4MB"
+CONFIG_PARTITION_TABLE_CUSTOM=y
+CONFIG_PARTITION_TABLE_CUSTOM_FILENAME="partitions.csv"
+
+# ---- OTA rollback --------------------------------------------------------
+# This is what makes the firmware-update-over-CAN story safe: a newly booted
+# image starts in PENDING_VERIFY and the bootloader reverts to the previous
+# slot unless the application calls esp_ota_mark_app_valid_cancel_rollback().
+CONFIG_BOOTLOADER_APP_ROLLBACK_ENABLE=y
+CONFIG_BOOTLOADER_WDT_ENABLE=y
+CONFIG_BOOTLOADER_WDT_TIME_MS=9000
+
+# ---- timing --------------------------------------------------------------
+# A 1 kHz tick: the CANopen task runs every millisecond, which is what keeps
+# a 10 ms PDO event timer honest.
+CONFIG_FREERTOS_HZ=1000
+CONFIG_ESP_MAIN_TASK_STACK_SIZE=4096
+
+# Keep the TWAI ISR in IRAM so bus traffic is still serviced during a flash
+# write - the firmware update path erases and writes flash while the bus runs.
+CONFIG_TWAI_ISR_IN_IRAM=y
+
+# ---- version -------------------------------------------------------------
+CONFIG_APP_PROJECT_VER_FROM_CONFIG=y
+CONFIG_APP_PROJECT_VER="1.0.0"
+
+# ---- misc ----------------------------------------------------------------
+CONFIG_COMPILER_OPTIMIZATION_PERF=y
+CONFIG_ESP_TASK_WDT_EN=y
+CONFIG_ESP_TASK_WDT_TIMEOUT_S=5
+CONFIG_LOG_DEFAULT_LEVEL_INFO=y

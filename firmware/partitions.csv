@@ -1,0 +1,16 @@
+# Two equal application slots so a firmware update over CAN always has
+# somewhere to land, plus the otadata partition the bootloader uses to pick
+# between them and to record a rollback.
+#
+# 4 MB flash:
+#   0x00000  bootloader + partition table
+#   0x09000  nvs        20 KB   persisted CANopen parameters (1010h)
+#   0x0E000  otadata     8 KB   which slot to boot, and its state
+#   0x10000  ota_0    1920 KB
+#   0x1F0000 ota_1    1920 KB
+#
+# Name,     Type, SubType, Offset,   Size,     Flags
+nvs,        data, nvs,     0x9000,   0x5000,
+otadata,    data, ota,     0xE000,   0x2000,
+ota_0,      app,  ota_0,   0x10000,  0x1E0000,
+ota_1,      app,  ota_1,   0x1F0000, 0x1E0000,

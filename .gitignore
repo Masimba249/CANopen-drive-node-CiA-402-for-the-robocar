@@ -49,6 +49,8 @@ CMakeFiles/
 CMakeCache.txt
 cmake_install.cmake
 Makefile
+# ... but the host test suite's makefile is hand written and belongs in git
+!host_tests/Makefile
 install_manifest.txt
 compile_commands.json
 
@@ -67,3 +69,15 @@ vcpkg_installed/
 # test output & cache
 Testing/
 .cache/
+
+# ESP-IDF
+firmware/sdkconfig
+firmware/sdkconfig.old
+firmware/dependencies.lock
+firmware/managed_components/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/

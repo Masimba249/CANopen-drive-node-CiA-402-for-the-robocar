@@ -1,0 +1,3 @@
+# CANopen master stack for the Raspberry Pi side.
+canopen>=2.2.0
+python-can>=4.2.0
